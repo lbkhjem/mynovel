@@ -35,8 +35,8 @@ export default function HomePage({ params, query }: { params: any; query: any })
   const [chapterList, setChapterList] = useState<any>([]);
   const [background, setBackground] = useState<any>('');
   const [family, setFamily] = useState<any>('');
-  const [fontSizes, setFontSize] = useState<any>('');
-  const router = useRouter()
+  const [fontSizes, setFontSize] = useState<any>(16);
+  const router = useRouter();
   useEffect(() => {
     let bg = localStorage.getItem('background');
     setBackground(bg);
@@ -104,8 +104,8 @@ export default function HomePage({ params, query }: { params: any; query: any })
     localStorage.setItem('fontsize', e);
   };
   const _handleChangeChapter = (e: any) => {
-    router.push(`/${query.id}/${e}`)
-  }
+    router.push(`/${query.id}/${e}`);
+  };
   return (
     <RootPC>
       <div style={{ background: background ? background : '#F4F4F4' }} className="bg-background">
@@ -239,23 +239,14 @@ export default function HomePage({ params, query }: { params: any; query: any })
                 ) : null}
               </div>
               <Divider my="sm" className="w-full" />
-              <TypographyStylesProvider
-                style={{ fontFamily: family ? family : '"Arial", sans-serif' }}
-                //   sx={(theme) => ({
-                //     backgroundColor: theme.colors.gray[0],
-                //     '&:hover': {
-                //       backgroundColor: theme.colors.gray[1],
-                //     },
-                //   })}
-              >
-                <div
-                  className="relative antialiased text-14 box-cmt "
-                  style={{ fontSize: Number(fontSizes) }}
-                  dangerouslySetInnerHTML={{
-                    __html: content?.content,
-                  }}
-                />
-              </TypographyStylesProvider>
+
+              <div
+                className="relative antialiased text-14 box-cmt text-black w-full"
+                style={{ fontSize: fontSizes ? Number(fontSizes) : 16 }}
+                dangerouslySetInnerHTML={{
+                  __html: content?.content,
+                }}
+              />
 
               <Divider my="sm" className="w-full" />
               <div className="flex items-center justify-center w-full my-2">
@@ -268,7 +259,6 @@ export default function HomePage({ params, query }: { params: any; query: any })
                     </a>
                   </Link>
                 ) : null}
-
 
                 {indexChapter < chapterList?.length - 1 ? (
                   <Link href={`/${query?.id}/${chapterList[indexChapter + 1]?.value}`}>
