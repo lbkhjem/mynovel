@@ -1,10 +1,11 @@
 // import AsyncStorage from "@react-native-async-storage/async-storage"
-import axios from "axios"
-import { baseUrl } from "./APIManage"
+import axios, { AxiosResponse } from "axios"
+import { baseUrlNovel } from "./APIManage"
+// import { baseUrl } from "./APIManage"
 
 
 export const AxiosInstance = axios.create({
-  baseURL: baseUrl,
+  baseURL: 'https://plankton-app-ukmky.ondigitalocean.app/',
   timeout: 60000,
   headers: {
     Accept: 'application/json',
@@ -22,12 +23,12 @@ AxiosInstance.interceptors.request.use(
 
     const ignoreHeader = requestConfig?.headers?.ignoreHeader
 
-    if (token && !ignoreHeader) {
-      requestConfig.headers.Authorization = `${token}`
-    }
-    if (!requestConfig.baseURL) {
-      requestConfig.baseURL = baseUrl
-    }
+    // if (token && !ignoreHeader) {
+    //   requestConfig.headers.Authorization = `${token}`
+    // }
+    // if (!requestConfig.baseURL) {
+    //   requestConfig.baseURL = baseUrl
+    // }
     console.log(
       `%cAPI request: ${requestConfig.method}`,
       'color:#1AF82A',

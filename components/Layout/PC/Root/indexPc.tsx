@@ -17,7 +17,7 @@ import { ArrowBigRight, ChevronLeft, ChevronRight, List, Settings } from 'tabler
 import { FooterPc } from '../FooterPc';
 import { HeaderPC } from '../Header/Header';
 
-export default function RootPC({children}) {
+export default function RootPC({children}: {children:any}) {
   return (
     <div className="bg-background">
       <HeaderPC />
