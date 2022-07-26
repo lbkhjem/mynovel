@@ -118,7 +118,8 @@ module.exports = {
         'Accent_Color_1': '#3CAEA4',
         'den':'#001529',
         'header': '#14425d',
-        'tim':'#847af3'
+        'tim':'#847af3',
+        'gender': '#536373'
       },
       dropShadow: {
         '2xl': '2px 4px 27px rgba(190, 30, 45, 0.2)',

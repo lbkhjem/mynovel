@@ -19,6 +19,7 @@
     "storybook:build": "build-storybook"
   },
   "dependencies": {
+    "@artsy/fresnel": "^3.5.0",
     "@mantine/core": "4.2.2",
     "@mantine/dates": "4.2.2",
     "@mantine/hooks": "4.2.2",
