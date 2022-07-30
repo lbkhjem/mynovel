@@ -33,7 +33,11 @@ export function HotNovelMobile() {
           <Flame />
           HOT NOVEL
         </p>
-        <p className="font-bold text-16 text-link">SEE MORE</p>
+        <Link href="/hotnovel/1">
+          <a>
+            <p className="font-bold text-16 text-link">SEE MORE</p>
+          </a>
+        </Link>
       </div>
       <SimpleGrid cols={2}>
         {datanovel?.slice(0, 12).map((item: any, index) => (

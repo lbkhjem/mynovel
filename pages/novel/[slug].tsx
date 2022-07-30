@@ -203,7 +203,7 @@ export default function HomePage({ params, query }: { params: any; query: any })
               </div>
             </div>
             <Skeleton visible={loading}>
-              <div className="w-full max-h-full object-cover block" style={{ height: 360 }}>
+              <div className="w-full max-h-full object-cover block" style={{  }}>
                 <div className="w-full relative overflow-hidden">
                   {datanovel?.cover ? (
                     <Image
@@ -216,7 +216,7 @@ export default function HomePage({ params, query }: { params: any; query: any })
                     />
                   ) : null}
 
-                  <div className="flex justify-start flex-col items-start absolute right-0 left-0 bottom-10 bg-black bg-opacity-70">
+                  <div className="flex justify-start flex-col items-start absolute right-0 left-0 bottom-0 bg-black bg-opacity-70">
                     <Container>
                       <h1 className="text-20 font-bold text-left w-full text-white">
                         {datanovel?.novelsname}
@@ -242,7 +242,7 @@ export default function HomePage({ params, query }: { params: any; query: any })
                         }
                       >
                         <a>
-                          <Button className="bg-tim my-2">Read Chapter 1</Button>
+                          <Button className="bg-tim my-2 mb-4">Read Chapter 1</Button>
                         </a>
                       </Link>
                     </Container>

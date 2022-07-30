@@ -49,7 +49,7 @@ export default function LastesNovel() {
     <RootMobile>
       <div className="bg-background">
         <div className="w-full bg-white py-2">
-          <div className="container flex items-center">
+          <div className="container flex items-center px-2">
             <Breadcrumbs separator=">">
               <Anchor href={'/'}>Home</Anchor>
               <Anchor>Lastest novel</Anchor>

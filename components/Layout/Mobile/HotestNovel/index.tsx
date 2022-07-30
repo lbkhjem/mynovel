@@ -1,24 +1,13 @@
-import {
-  Title,
-  Text,
-  Anchor,
-  Container,
-  Menu,
-  Button,
-  Grid,
-  Input,
-  Table,
-  Skeleton,
-} from '@mantine/core';
+import { Skeleton, Table, Text } from '@mantine/core';
 import Image from 'next/image';
 import Link from 'next/link';
-import { AlignCenter, ChevronDown, Refresh, Search } from 'tabler-icons-react';
-import ReactPaginate from 'react-paginate';
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { getNovelUpdate } from '../../../../API/APIManage';
+import { useEffect, useState } from 'react';
+import ReactPaginate from 'react-paginate';
+import { Flame } from 'tabler-icons-react';
+import { getNovelHotest, getNovelUpdate } from '../../../../API/APIManage';
 
-export function LastestNovelMobile() {
+export function HotestNovelMobile() {
   const router = useRouter();
   const [itemOffset, setItemOffset] = useState(Number(router.query?.page));
   const [loading, setLoading] = useState(false);
@@ -28,7 +17,7 @@ export function LastestNovelMobile() {
       page: router.query?.page,
     };
     setLoading(true);
-    getNovelUpdate(params)
+    getNovelHotest(params)
       .then((res: any) => {
         setDatanovel(res?.data);
         setLoading(false);
@@ -36,7 +25,7 @@ export function LastestNovelMobile() {
       .catch((e) => {});
   }, [router]);
   useEffect(() => {
-    router.push(`/lastestnovel/${itemOffset}`);
+    router.push(`/hotnovel/${itemOffset}`);
   }, [itemOffset]);
   const rows = datanovel.map((element: any) => (
       <tr key={element.novelsname} className="w-full">
@@ -68,12 +57,12 @@ export function LastestNovelMobile() {
     setItemOffset(event.selected + 1);
   };
   return (
-    <div className="container bg-white my-2 w-full rounded-sm">
+    <div className="container bg-white my-2 rounded-sm">
       <div className="w-full justify-start px-2 flex py-2">
         <p className="font-bold text-16 flex items-center">
           {' '}
-          <Refresh />
-          LATEST RELEASE NOVELS
+          <Flame />
+          HOT NOVELS
         </p>
         {/* <p className="font-bold text-16 text-link">SEE MORE</p> */}
       </div>
@@ -92,7 +81,7 @@ export function LastestNovelMobile() {
       <ReactPaginate
         breakLabel="..."
         nextLabel=">"
-        className="flex px-2 items-center w-full overflow-hidden"
+        className="flex px-2 items-center overflow-hidden"
         pageClassName="font-bold bg-white p-2 border-border border-1 rounded"
         onPageChange={handlePageClick}
         initialPage={itemOffset}

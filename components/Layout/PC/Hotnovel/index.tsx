@@ -1,4 +1,15 @@
-import { Title, Text, Anchor, Container, Menu, Button, Grid, Input, Table, SimpleGrid } from '@mantine/core';
+import {
+  Title,
+  Text,
+  Anchor,
+  Container,
+  Menu,
+  Button,
+  Grid,
+  Input,
+  Table,
+  SimpleGrid,
+} from '@mantine/core';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -22,32 +33,37 @@ export function HotNovelPc() {
           <Flame />
           HOT NOVEL
         </p>
-        <p className="font-bold text-16 text-link">SEE MORE</p>
+        <Link href="/hotnovel/1">
+          <a>
+            <p className="font-bold text-16 text-link">SEE MORE</p>
+          </a>
+        </Link>
       </div>
       <SimpleGrid cols={6}>
-        {datanovel?.slice(0,12).map((item: any, index) => (
-            <Link href={`/novel/${item.idnovel}`}>
-                <a>
-                <div className="w-full max-h-full object-cover block ">
-             <div className="w-full relative overflow-hidden">
-              {item?.cover ? (
-                <Image
-                  src={item?.cover}
-                  alt={item?.novelsname}
-                  layout='responsive' 
-                  width={179}
-                  height={261}
-                  objectFit="fill"
-                />
-              ) : null}
-              <div className="flex justify-center items-center absolute right-0 left-0 bottom-0 bg-black bg-opacity-60">
-                <h3 className='text-white text-xs text-center font-bold py-2'>{item?.novelsname}</h3>
+        {datanovel?.slice(0, 12).map((item: any, index) => (
+          <Link href={`/novel/${item.idnovel}`}>
+            <a>
+              <div className="w-full max-h-full object-cover block ">
+                <div className="w-full relative overflow-hidden">
+                  {item?.cover ? (
+                    <Image
+                      src={item?.cover}
+                      alt={item?.novelsname}
+                      layout="responsive"
+                      width={179}
+                      height={261}
+                      objectFit="fill"
+                    />
+                  ) : null}
+                  <div className="flex justify-center items-center absolute right-0 left-0 bottom-0 bg-black bg-opacity-60">
+                    <h3 className="text-white text-xs text-center font-bold py-2">
+                      {item?.novelsname}
+                    </h3>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-                </a>
-            </Link>
-         
+            </a>
+          </Link>
         ))}
       </SimpleGrid>
     </div>
