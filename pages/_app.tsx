@@ -7,6 +7,7 @@ import Head from 'next/head';
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
 import { GoogleFonts } from 'next-google-fonts';
+import Script from 'next/script';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
@@ -30,6 +31,19 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
         <link rel="shortcut icon" href="/favicon.svg" />
       </Head>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-C274YYFH7B"
+        strategy="afterInteractive"
+      />
+            <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-C274YYFH7B');
+        `}
+      </Script>
 
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider

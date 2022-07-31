@@ -13,6 +13,8 @@ import { HotNovelPc } from '../components/Layout/PC/Hotnovel';
 import RootMobile from '../components/Layout/Mobile/Root/indexMobile';
 import { HotNovelMobile } from '../components/Layout/Mobile/Hotnovel';
 import { NovelUpdateListMobile } from '../components/Layout/Mobile/NovelUpdateList/NovelUpdateList';
+import { NextSeo } from 'next-seo';
+import Head from 'next/head';
 const { MediaContextProvider, Media } = createMedia({
   // breakpoints values can be either strings or integers
   breakpoints: {
@@ -33,6 +35,17 @@ export default function HomePage() {
   }, []);
   return (
     <MediaContextProvider>
+      <Head>
+        <meta
+          name="keywords"
+          content="english light novels, isekai light novels, good light novels, light novel download,read light novel"
+        />
+      </Head>
+      <NextSeo
+        title="Bestnovel.app - Read light novel in English for free"
+        description="We have one of the largest lightnovel library you can find. Looking for good light novels, English light novels, isekai light novel? You can read or download light novel with bestnovel.app."
+        canonical="https://bestnovel.app/"
+      />
       <Media greaterThanOrEqual="lg">
         <RootPC>
           <div className="bg-background">

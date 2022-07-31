@@ -23,11 +23,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { ArrowBigRight } from 'tabler-icons-react';
-import { getNovelDetails } from '../../API/APIManage';
+import { baseUrlNovel, getNovelDetails } from '../../API/APIManage';
 import { GenresListPC } from '../../components/Layout/PC/GenresList/GenresList';
 import { HeaderPC } from '../../components/Layout/PC/Header/Header';
 import RootPC from '../../components/Layout/PC/Root/indexPc';
 import RootMobile from '../../components/Layout/Mobile/Root/indexMobile';
+import { BreadcrumbJsonLd, NewsArticleJsonLd, NextSeo } from 'next-seo';
+import Head from 'next/head';
+import moment from 'moment';
 const { MediaContextProvider, Media } = createMedia({
   // breakpoints values can be either strings or integers
   breakpoints: {
@@ -37,30 +40,31 @@ const { MediaContextProvider, Media } = createMedia({
     xl: 1192,
   },
 });
-export default function HomePage({ params, query }: { params: any; query: any }) {
-  const [datanovel, setDatanovel] = useState<any>({});
+export default function HomePage({ params, query,data }: { params: any; query: any,data:any }) {
+  const [datanovel, setDatanovel] = useState<any>(data[0]);
   const [itemBreadcumb, setItemBreadcumb] = useState<any>([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
-  useEffect(() => {
-    if (query?.slug) {
-      setLoading(true);
-      getNovelDetails(query?.slug)
-        .then((res: any) => {
-          console.log(res);
-          if (res?.data?.length > 0) {
-            setDatanovel(res?.data[0]);
-            setLoading(false);
-          }
-        })
-        .catch((e) => {});
-    }
-  }, [query]);
+  // useEffect(() => {
+  //   if (query?.slug) {
+  //     setLoading(true);
+  //     getNovelDetails(query?.slug)
+  //       .then((res: any) => {
+  //         console.log(res);
+  //         if (res?.data?.length > 0) {
+  //           setDatanovel(res?.data[0]);
+  //           setLoading(false);
+  //         }
+  //       })
+  //       .catch((e) => {});
+  //   }
+  // }, [query]);
   console.log(search);
   useEffect(() => {
     if (datanovel.novelsname) {
       const items = [
         { title: 'Home', href: '/' },
+        { title: 'Novel', href: '#' },
         { title: datanovel?.novelsname, href: `/novel/${datanovel?.idnovels}` },
       ].map((item, index) => (
         <Anchor href={item.href} key={index}>
@@ -72,6 +76,55 @@ export default function HomePage({ params, query }: { params: any; query: any })
   }, [datanovel]);
   return (
     <MediaContextProvider>
+      <Head>
+        <meta
+          name="keywords"
+          content={`${datanovel?.novelsname}, read ${datanovel?.novelsname}`}
+        />
+      </Head>
+      <BreadcrumbJsonLd
+      itemListElements={[
+        {
+          position: 1,
+          name: 'Home',
+          item: 'https://bestnovel.app/',
+        },
+        {
+          position: 1,
+          name: 'Novel',
+          item: 'https://bestnovel.app/',
+        },
+        {
+          position: 2,
+          name: `${datanovel?.novelsname}`,
+          item: `https://bestnovel.app/novel/${datanovel?.idnovels}`
+        },
+      ]}
+    />
+    <NextSeo
+      openGraph={{
+        title: `${datanovel?.novelsname}`,
+        description: `Read ${datanovel?.novelsname} online for free. Written by the Author ${datanovel?.author}. The latest chapter of the novel ${datanovel?.novelsname} just got updated to bestnovel.app, read it and thoundsand of other light novels on our site`,
+        url: `https://bestnovel.app/novel/${datanovel?.idnovels}`,
+        type: 'book',
+        book: {
+          releaseDate: `${moment().utc().toString()}`,
+          isbn: '978-3-16-148410-0',
+          authors: [
+            `https://bestnovel.app/authors/@${datanovel?.author}`,
+          ],
+          tags: [`${datanovel?.novelsname}`],
+        },
+        images: [
+          {
+            url: `${datanovel?.cover}`,
+            width: 850,
+            height: 650,
+            alt: `${datanovel?.novelsname}`,
+          },
+        ],
+      }}
+    />
       <Media greaterThanOrEqual="lg">
         <RootPC>
           <div className="bg-background">
@@ -82,7 +135,7 @@ export default function HomePage({ params, query }: { params: any; query: any })
             </div>
             <div className="w-full py-2 relative" style={{ height: 432 }}>
               <BackgroundImage
-                src="https://www.readwn.com/static/images/novel-header-bg2.jpg"
+                src="https://bestnovel.app/novel.jpg"
                 style={{ height: 350 }}
                 radius="xs"
               >
@@ -310,7 +363,9 @@ export default function HomePage({ params, query }: { params: any; query: any })
 }
 export async function getServerSideProps({ params, query }: { params: any; query: any }) {
   let productData = [];
-  // const res1 = await fetch(`${API_URL}fe/v1/products/${params.id}`)
-  // const data = await res1.json()
-  return { props: { params, query } };
+  console.log(params)
+  const res1 = await fetch(`${baseUrlNovel}novel?id=${query?.slug}`)
+  const data = await res1.json()
+  console.log(data);
+  return { props: { params, query,data} };
 }
